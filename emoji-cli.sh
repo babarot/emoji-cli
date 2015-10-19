@@ -36,17 +36,26 @@ emoji-cli() {
             comp="$(echo $_LBUFFER | grep -E -o ":?[a-zA-z0-9+_-]+")"
             emoji="$(emoji_get_with_tag "${comp#:}")"
             _BUFFER="${LBUFFER%$comp}${emoji:-$comp}"
+            #BUFFER="${LBUFFER%$comp}${emoji:-$comp}${_RBUFFER}"
         else
             emoji="$(emoji_get)"
             _BUFFER="${LBUFFER}${emoji}"
+            #BUFFER="${LBUFFER}${emoji}${_RBUFFER}"
         fi
     else
         emoji="$(emoji_get)"
         _BUFFER="${emoji}"
+        #BUFFER="${emoji}${_RBUFFER}"
     fi
 
+    #CURSOR=$#BUFFER
+
+    if [[ -n "$_RBUFFER" ]]; then
+        BUFFER=$_BUFFER$_RBUFFER
+    else
+        BUFFER=$_BUFFER
+    fi
     CURSOR=$#_BUFFER
-    BUFFER=$_BUFFER$_RBUFFER
     zle clear-screen
 
     #else

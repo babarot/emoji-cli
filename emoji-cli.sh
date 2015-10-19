@@ -26,21 +26,29 @@ emoji-cli() {
     #        READLINE_POINT=${#READLINE_LINE}
     #    fi
     #elif is_zsh; then
+
+    local _BUFFER _RBUFFER _LBUFFER
+    _RBUFFER=$RBUFFER
     if [[ -n $LBUFFER ]]; then
-        if [[ $LBUFFER =~ " $" ]]; then
-            emoji="$(emoji_get)"
-            BUFFER="$LBUFFER$emoji"
+        _LBUFFER=${LBUFFER##* }
+        if [[ $_LBUFFER =~ [a-zA-z0-9+_-]$ ]]; then
+            local comp
+            comp="$(echo $_LBUFFER | grep -E -o ":?[a-zA-z0-9+_-]+")"
+            emoji="$(emoji_get_with_tag "${comp#:}")"
+            _BUFFER="${LBUFFER%$comp}${emoji:-$comp}"
         else
-            emoji="$(emoji_get_with_tag ${LBUFFER##* })"
-            BUFFER="${LBUFFER% *} $emoji"
+            emoji="$(emoji_get)"
+            _BUFFER="${LBUFFER}${emoji}"
         fi
     else
         emoji="$(emoji_get)"
-        BUFFER="$emoji"
+        _BUFFER="${emoji}"
     fi
 
-    CURSOR=$#BUFFER
+    CURSOR=$#_BUFFER
+    BUFFER=$_BUFFER$_RBUFFER
     zle clear-screen
+
     #else
     #    echo "bash or zsh" 1>&2
     #    return 1

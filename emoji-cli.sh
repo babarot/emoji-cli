@@ -34,7 +34,7 @@ emoji-cli() {
         if [[ $_LBUFFER =~ [a-zA-z0-9+_-]$ ]]; then
             local comp
             comp="$(echo $_LBUFFER | grep -E -o ":?[a-zA-z0-9+_-]+")"
-            emoji="$(emoji_get_with_tag "${comp#:}")"
+            emoji="$(emoji_get_with_tag "${(L)comp#:}")"
             _BUFFER="${LBUFFER%$comp}${emoji:-$comp}"
             #BUFFER="${LBUFFER%$comp}${emoji:-$comp}${_RBUFFER}"
         else

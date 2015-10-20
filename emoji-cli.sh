@@ -89,7 +89,7 @@ emoji::cli() {
     fi
 
     CURSOR=$#_BUFFER
-    zle clear-screen
+    zle reset-prompt
 }
 
 # source only

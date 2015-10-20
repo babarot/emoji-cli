@@ -1,70 +1,120 @@
-is_bash() { [ -n "$BASH_VERSION" ]; }
-is_zsh()  { [ -n "$ZSH_VERSION" ];  }
+#
+#                        _ _            _ _   
+#                       (_|_)          | (_)  
+#    ___ _ __ ___   ___  _ _ ______ ___| |_   
+#   / _ \ '_ ` _ \ / _ \| | |______/ __| | |  
+#  |  __/ | | | | | (_) | | |     | (__| | |  
+#   \___|_| |_| |_|\___/| |_|      \___|_|_|  
+#                      _/ |                   
+#                     |__/                    
+#
 
-emoji_get() {
-    cat <dist/emoji.json \
+EMOJI_CLI_DIST="${0:A:h}/dist/emoji.json"
+: "${EMOJI_CLI_FILTER:="fzf:peco:percol"}"
+: "${EMOJI_CLI_KEYBIND:="^s"}"
+
+# helper functions
+is_zsh()  { [ -n "$ZSH_VERSION" ];  }
+available() {
+    local x candidates
+
+    # candidates should be list like "a:b:c" concatenated by a colon
+    candidates="$1:"
+
+    while [ -n "$candidates" ]; do
+        # the first remaining entry
+        x=${candidates%%:*}
+        # reset candidates
+        candidates=${candidates#*:}
+
+        # check if x is available
+        if has "$x"; then
+            echo "$x"
+            return 0
+        else
+            continue
+        fi
+    done
+
+    return 1
+}
+
+# unique EMOJI_CLI_FILTER
+_EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
+
+emoji::emoji_get() {
+    cat <"$EMOJI_CLI_DIST" \
         | jq -r '.[]|"\(.emoji) \(":" + .aliases[0] + ":")"' \
-        | fzf \
+        | eval "$_EMOJI_CLI_FILTER" \
         | awk '{print $2}'
 }
 
-emoji_get_with_tag() {
-    cat <dist/emoji.json \
+emoji::emoji_get_with_tag() {
+    local filter
+    filter="$(available "$EMOJI_CLI_FILTER")"
+
+    cat <"$EMOJI_CLI_DIST" \
         | jq -r '.[] | select(.tags[],.aliases[]|contains("'"$1"'"))| "\(.emoji) \(":" + .aliases[0] + ":")"' \
         | sort -k2,2 \
         | uniq \
-        | fzf \
+        | eval "$_EMOJI_CLI_FILTER" \
         | awk '{print $2}'
 }
 
-emoji-cli() {
+emoji::cli() {
     local emoji
-
-    #if is_bash; then
-    #    if [[ -n $emoji ]]; then
-    #        READLINE_LINE="$LBUFFER $emoji"
-    #        READLINE_POINT=${#READLINE_LINE}
-    #    fi
-    #elif is_zsh; then
-
     local _BUFFER _RBUFFER _LBUFFER
+
     _RBUFFER=$RBUFFER
     if [[ -n $LBUFFER ]]; then
         _LBUFFER=${LBUFFER##* }
         if [[ $_LBUFFER =~ [a-zA-z0-9+_-]$ ]]; then
             local comp
             comp="$(echo $_LBUFFER | grep -E -o ":?[a-zA-z0-9+_-]+")"
-            emoji="$(emoji_get_with_tag "${(L)comp#:}")"
+            emoji="$(emoji::emoji_get_with_tag "${(L)comp#:}")"
             _BUFFER="${LBUFFER%$comp}${emoji:-$comp}"
-            #BUFFER="${LBUFFER%$comp}${emoji:-$comp}${_RBUFFER}"
         else
-            emoji="$(emoji_get)"
+            emoji="$(emoji::emoji_get)"
             _BUFFER="${LBUFFER}${emoji}"
-            #BUFFER="${LBUFFER}${emoji}${_RBUFFER}"
         fi
     else
-        emoji="$(emoji_get)"
+        emoji="$(emoji::emoji_get)"
         _BUFFER="${emoji}"
-        #BUFFER="${emoji}${_RBUFFER}"
     fi
-
-    #CURSOR=$#BUFFER
 
     if [[ -n "$_RBUFFER" ]]; then
         BUFFER=$_BUFFER$_RBUFFER
     else
         BUFFER=$_BUFFER
     fi
+
     CURSOR=$#_BUFFER
     zle clear-screen
-
-    #else
-    #    echo "bash or zsh" 1>&2
-    #    return 1
-    #fi
 }
 
-zle -N emoji-cli
-bindkey "^j" emoji-cli
+# source only
+if [[ ! $- =~ i ]]; then
+    echo "this script requires interactive shell mode" 1>&2
+    exit 1
+fi
+
+# zsh only
+if ! is_zsh; then
+    echo "this script requires zsh" 1>&2
+    return 1
+fi
+
+if (( ! $+commands[jq] )); then
+    echo "jq: not found" 1>&2
+    return 1
+fi
+
+if [[ -z $_EMOJI_CLI_FILTER ]] || (( ! $+commands[$_EMOJI_CLI_FILTER] )); then
+    echo "$EMOJI_CLI_FILTER: not available as an interactive filter command" 1>&2
+    return 1
+fi
+# settings for keybind
+zle -N emoji::cli
+bindkey "$EMOJI_CLI_KEYBIND" emoji::cli
 
 # vim:ft=zsh

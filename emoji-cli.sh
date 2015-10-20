@@ -28,7 +28,7 @@ available() {
         candidates=${candidates#*:}
 
         # check if x is available
-        if has "$x"; then
+        if (( $+commands[$x] )); then
             echo "$x"
             return 0
         else

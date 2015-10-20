@@ -9,7 +9,7 @@
 #                     |__/                    
 #
 
-EMOJI_CLI_DIST="${0:A:h}/dist/emoji.json"
+EMOJI_CLI_DICT="${0:A:h}/dict/emoji.json"
 : "${EMOJI_CLI_FILTER:="fzf:peco:percol"}"
 : "${EMOJI_CLI_KEYBIND:="^s"}"
 
@@ -43,7 +43,7 @@ available() {
 _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
 emoji::emoji_get() {
-    cat <"$EMOJI_CLI_DIST" \
+    cat <"$EMOJI_CLI_DICT" \
         | jq -r '.[]|"\(.emoji) \(":" + .aliases[0] + ":")"' \
         | eval "$_EMOJI_CLI_FILTER" \
         | awk '{print $2}'
@@ -53,7 +53,7 @@ emoji::emoji_get_with_tag() {
     local filter
     filter="$(available "$EMOJI_CLI_FILTER")"
 
-    cat <"$EMOJI_CLI_DIST" \
+    cat <"$EMOJI_CLI_DICT" \
         | jq -r '.[] | select(.tags[],.aliases[]|contains("'"$1"'"))| "\(.emoji) \(":" + .aliases[0] + ":")"' \
         | sort -k2,2 \
         | uniq \

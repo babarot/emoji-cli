@@ -6,7 +6,7 @@
 
 Emoji (絵文字, Japanese pronunciation: [emodʑi]) are the ideograms or smileys used in Japanese electronic messages and Web pages, that are spreading outside Japan (ref: [Katy Perry - Roar (Lyric Video)](https://www.youtube.com/watch?v=e9SeJIgWRPk)).
 
-Emoji are funny and make us want to use it :blush:. However, it is hard to use it on the command line. This is because the command line don't have input completion for emoji. Therefore, I developed this command line application `emoji-cli` with an interactive filter.
+Emoji are funny and make us want to use it :blush:. However, it is hard to use it on the command line. This is because the command line don't have input completion for emoji. Therefore, I developed this command line application `emoji-cli`.
 
 ***DEMO:***
 
@@ -39,10 +39,10 @@ echo ":santa^s" | emojify
 
 ```console
 $ git clone https://github.com/b4b4r07/emoji-cli
-$ source ./emoji-cli/emoji-cli.zsh
+$ source ./emoji-cli/emoji-cli.sh
 ```
 
-For [Antigen](https://github.com/zsh-users/antigen):
+For [Antigen](https://github.com/zsh-users/antigen) user:
 
 ```console
 $ antigen bundle b4b4r07/emoji-cli
@@ -51,13 +51,13 @@ $ antigen bundle b4b4r07/emoji-cli
 ### Dependencies
 
 - [`jq`](https://stedolan.github.io/jq/)
-- an interactive filter ([`fzf`](https://github.com/junegunn/fzf), [`peco`](https://github.com/peco/peco)...)
+- An interactive filter ([`fzf`](https://github.com/junegunn/fzf), [`peco`](https://github.com/peco/peco)...)
 
 ## :wrench: Setup
 
 ### `EMOJI_CLI_DICT`
 
-It is defaults to `./dict/emoji.json`.  `EMOJI_CLI_DICT` is a path to dictionary of emoji database file. It is written in JSON.
+It is defaults to `./dict/emoji.json`. `EMOJI_CLI_DICT` is a path to dictionary of emoji database file. It is written in JSON.
 
 ### `EMOJI_CLI_FILTER`
 
@@ -65,7 +65,7 @@ It is defaults to `fzf:peco:percol:gof`. `EMOJI_CLI_FILTER` is the interactive f
 
 ### `EMOJI_CLI_KEYBIND`
 
-It is defaults to `^s` (ctrl-s). `EMOJI_CLI_KEYBIND`　is the key binding to start the input completion for emoji.
+It is defaults to `^s` (ctrl-s). `EMOJI_CLI_KEYBIND` is the key binding to start the input completion for emoji.
 
 ## :ticket: License
 

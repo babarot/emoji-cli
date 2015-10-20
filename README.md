@@ -14,7 +14,7 @@ Emoji are funny and make us want to use it :blush:. However, it is hard to use i
 
 ## :trollface: Features
 
-- :scream:　Emoji on the command line
+- :scream: Emoji on the command line
 - :globe_with_meridians: Interactive filter
 - :mag_right: Fuzzy search
 
@@ -22,7 +22,7 @@ Unfortunately, this application supports Z shell only now :bow:.
 
 ## :mag: Usage
 
-To insert emoji to the command line, type ctrl-s (<kbd>^s</kbd>).
+To insert emoji to the command line, type ctrl-s ( <kbd>^s</kbd> ).
 
 ```console
 $ git commit -m 'This docume^s ...
@@ -42,24 +42,30 @@ $ git clone https://github.com/b4b4r07/emoji-cli
 $ source ./emoji-cli/emoji-cli.zsh
 ```
 
+For [Antigen](https://github.com/zsh-users/antigen):
+
+```console
+$ antigen bundle b4b4r07/emoji-cli
+```
+
 ### Dependencies
 
-- `jq`
-- an interactive filter (`fzf`, `peco`...)
+- [`jq`](https://stedolan.github.io/jq/)
+- an interactive filter ([`fzf`](https://github.com/junegunn/fzf), [`peco`](https://github.com/peco/peco)...)
 
 ## :wrench: Setup
 
-### :bookmark_tabs: `EMOJI_CLI_DIST`
+### `EMOJI_CLI_DICT`
 
-It is defaults to `./dist/emoji.json`.
+It is defaults to `./dict/emoji.json`.  `EMOJI_CLI_DICT` is a path to dictionary of emoji database file. It is written in JSON.
 
-### :globe_with_meridians: `EMOJI_CLI_FILTER`
+### `EMOJI_CLI_FILTER`
 
-It is defaults to `fzf:peco:percol:gof`.
+It is defaults to `fzf:peco:percol:gof`. `EMOJI_CLI_FILTER` is the interactive filter command in order to use select emoji. It is separated by colon like the `PATH` environment variable.
 
-### :open_hands: `EMOJI_CLI_KEYBIND`
+### `EMOJI_CLI_KEYBIND`
 
-It is defaults to `^s` (ctrl-s).
+It is defaults to `^s` (ctrl-s). `EMOJI_CLI_KEYBIND`　is the key binding to start the input completion for emoji.
 
 ## :ticket: License
 

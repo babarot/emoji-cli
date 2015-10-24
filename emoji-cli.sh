@@ -43,6 +43,9 @@ available() {
 _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
 emoji::emoji_get() {
+    # reset filter
+    _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
+
     cat <"$EMOJI_CLI_DICT" \
         | jq -r '.[]|"\(.emoji) \(":" + .aliases[0] + ":")"' \
         | eval "$_EMOJI_CLI_FILTER" \
@@ -50,8 +53,8 @@ emoji::emoji_get() {
 }
 
 emoji::emoji_get_with_tag() {
-    local filter
-    filter="$(available "$EMOJI_CLI_FILTER")"
+    # reset filter
+    _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
     cat <"$EMOJI_CLI_DICT" \
         | jq -r '.[] | select(.tags[],.aliases[]|contains("'"$1"'"))| "\(.emoji) \(":" + .aliases[0] + ":")"' \

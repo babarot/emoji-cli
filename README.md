@@ -1,4 +1,6 @@
-# emoji-cli
+[![](https://raw.githubusercontent.com/b4b4r07/screenshots/master/emoji-cli/logo.png)][top]
+
+[top]: https://github.com/b4b4r07/emoji-cli
 
 `emoji-cli` provides input completion for emoji on the command line with an interactive filter.
 
@@ -10,7 +12,7 @@ Emoji are funny and make us want to use it :blush:. However, it is hard to use i
 
 ***DEMO:***
 
-![](https://raw.githubusercontent.com/b4b4r07/screenshots/master/emoji-cli/demo.gif)
+[![](https://raw.githubusercontent.com/b4b4r07/screenshots/master/emoji-cli/demo.gif)][top]
 
 ## :trollface: Features
 

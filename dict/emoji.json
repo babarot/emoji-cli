@@ -1430,6 +1430,7 @@
             "prohibited",
             "blind",
             "ignore",
+            "mizaru",
             "see"
         ]
     },
@@ -1453,6 +1454,7 @@
             "nature",
             "no",
             "not",
+            "kikazaru",
             "prohibited"
         ]
     },
@@ -1477,6 +1479,7 @@
             "prohibited",
             "mute",
             "hush",
+            "iwazaru",
             "speak"
         ]
     },
@@ -4529,6 +4532,9 @@
         "tags": [
             "earth",
             "globe",
+            "internet",
+            "web",
+            "net",
             "meridians",
             "nature",
             "place",
@@ -10575,6 +10581,7 @@
         "tags": [
             "flag",
             "japan",
+            "japanese",
             "other"
         ]
     },
@@ -14146,7 +14153,13 @@
         "aliases": [
             "bowtie"
         ],
-        "tags": []
+        "tags": [
+            "kao",
+            "face",
+            "ribbon",
+            "person",
+            "smile"
+        ]
     },
     {
         "aliases": [
@@ -14164,7 +14177,9 @@
         "aliases": [
             "fu"
         ],
-        "tags": []
+        "tags": [
+            "fuck"
+        ]
     },
     {
         "aliases": [
@@ -14200,7 +14215,9 @@
         "aliases": [
             "octocat"
         ],
-        "tags": []
+        "tags": [
+            "github"
+        ]
     },
     {
         "aliases": [

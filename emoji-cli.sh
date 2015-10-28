@@ -39,6 +39,68 @@ available() {
     return 1
 }
 
+emoji::fuzzy() {
+    awk -v search_string="${1:?too few arguments}" '
+    {
+        # calculates the degree of similarity
+        if ( (1 - leven_dist($0, search_string) / (length($0) + length(search_string))) * 100 >= 70 ) {
+            # When the degree of similarity of search_string is greater than or equal to 70%,
+            # to display the candidate path
+            print $0
+        }
+    }
+
+    # leven_dist returns the Levenshtein distance two text string
+    function leven_dist(a, b) {
+        lena = length(a);
+        lenb = length(b);
+
+        if (lena == 0) {
+            return lenb;
+        }
+        if (lenb == 0) {
+            return lena;
+        }
+
+        for (row = 1; row <= lena; row++) {
+            m[row,0] = row
+        }
+        for (col = 1; col <= lenb; col++) {
+            m[0,col] = col
+        }
+
+        for (row = 1; row <= lena; row++) {
+            ai = substr(a, row, 1)
+            for (col = 1; col <= lenb; col++) {
+                bi = substr(b, col, 1)
+                if (ai == bi) {
+                    cost = 0
+                } else {
+                    cost = 1
+                }
+                m[row,col] = min(m[row-1,col]+1, m[row,col-1]+1, m[row-1,col-1]+cost)
+            }
+        }
+
+        return m[lena,lenb]
+    }
+
+    # min returns the smaller of x, y or z
+    function min(a, b, c) {
+        result = a
+
+        if (b < result) {
+            result = b
+        }
+
+        if (c < result) {
+            result = c
+        }
+
+        return result
+    }' 2>/dev/null
+}
+
 # unique EMOJI_CLI_FILTER
 _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
@@ -56,9 +118,18 @@ emoji::emoji_get_with_tag() {
     # reset filter
     _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
-    cat <"$EMOJI_CLI_DICT" \
-        | jq -r '.[] | select(.tags[],.aliases[]|contains("'"$1"'"))| "\(.emoji) \(":" + .aliases[0] + ":")"' \
-        | sort -k2,2 \
+    local tmp
+    tmp="$(jq -r '.[] | select(.tags[],.aliases[]|contains("'"$1"'")) | "\(.emoji) \(":" + .aliases[0] + ":")"' "$EMOJI_CLI_DICT")"
+    if [[ -n $tmp ]]; then
+        echo "$tmp"
+    else
+        local candidates i
+        candidates=($(jq -r '[.[] | .tags[]] | sort | unique | .[]' "$EMOJI_CLI_DICT" | emoji::fuzzy "$1"))
+        for i in "${candidates[@]}"; do
+            cat <"$EMOJI_CLI_DICT" \
+                | jq -r '.[] | select(.tags[],.aliases[]|contains("'"$i"'"))| "\(.emoji) \(":" + .aliases[0] + ":")"'
+        done
+    fi | sort -k2,2 \
         | uniq \
         | eval "$_EMOJI_CLI_FILTER" \
         | awk '{print $2}'

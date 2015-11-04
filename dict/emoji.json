@@ -1558,10 +1558,11 @@
         ],
         "version": 6,
         "tags": [
+            "delete",
             "fire",
-            "burn",
             "flame",
             "object",
+            "remove",
             "tool"
         ]
     },
@@ -2133,6 +2134,8 @@
             "biceps",
             "body",
             "comic",
+            "hand",
+            "ude",
             "flex",
             "muscle",
             "person"
@@ -6273,7 +6276,9 @@
         "tags": [
             "object",
             "tool",
-            "wrench"
+            "wrench",
+            "change",
+            "customize"
         ]
     },
     {
@@ -6829,6 +6834,7 @@
         "tags": [
             "communication",
             "document",
+            "docs",
             "note",
             "memo",
             "object",
@@ -6846,6 +6852,7 @@
         "version": 6,
         "tags": [
             "document",
+            "docs",
             "object",
             "office",
             "page"
@@ -6862,6 +6869,7 @@
         "tags": [
             "curl",
             "document",
+            "docs",
             "object",
             "office",
             "page"
@@ -6949,6 +6957,7 @@
         "tags": [
             "object",
             "document",
+            "docs",
             "office",
             "paper",
             "scroll"
@@ -7166,6 +7175,7 @@
         "tags": [
             "book",
             "closed",
+            "dictionary",
             "education",
             "object",
             "office"
@@ -7181,6 +7191,7 @@
         "version": 6,
         "tags": [
             "book",
+            "dictionary",
             "education",
             "green",
             "object",
@@ -7198,6 +7209,7 @@
         "tags": [
             "blue",
             "book",
+            "dictionary",
             "education",
             "object",
             "office"
@@ -7213,6 +7225,7 @@
         "version": 6,
         "tags": [
             "book",
+            "dictionary",
             "education",
             "object",
             "office",
@@ -7245,6 +7258,7 @@
             "book",
             "cover",
             "decorated",
+            "dictionary",
             "education",
             "notebook",
             "object",
@@ -7277,6 +7291,7 @@
         "tags": [
             "book",
             "books",
+            "dictionary",
             "education",
             "library",
             "object",
@@ -7294,6 +7309,7 @@
         "version": 6,
         "tags": [
             "book",
+            "dictionary",
             "education",
             "object",
             "office",
@@ -10961,6 +10977,7 @@
         "version": 4,
         "tags": [
             "arrow",
+            "upgrade",
             "cardinal",
             "direction",
             "north",
@@ -10977,6 +10994,7 @@
         "version": 4,
         "tags": [
             "arrow",
+            "downgrade",
             "cardinal",
             "direction",
             "down",
@@ -11812,10 +11830,14 @@
         ],
         "version": 6,
         "tags": [
+            "garbage",
+            "gomi",
             "litter",
             "litterbox",
             "place",
+            "poisute",
             "symbol",
+            "trash",
             "travel"
         ]
     },
@@ -12834,6 +12856,7 @@
         "version": 1.1,
         "tags": [
             "copyright",
+            "license",
             "symbol",
             "word"
         ]

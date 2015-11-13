@@ -1,4 +1,4 @@
-[![](https://raw.githubusercontent.com/b4b4r07/screenshots/master/emoji-cli/logo.png)][top]
+[![](https://raw.githubusercontent.com/b4b4r07/screenshots/master/emoji-cli/logo.gif)][top]
 
 [top]: https://github.com/b4b4r07/emoji-cli
 
@@ -63,7 +63,7 @@ It is defaults to `./dict/emoji.json`. `EMOJI_CLI_DICT` is a path to dictionary 
 
 ### `EMOJI_CLI_FILTER`
 
-It is defaults to `fzf:peco:percol:gof`. `EMOJI_CLI_FILTER` is the interactive filter command in order to use select emoji. It is separated by colon like the `PATH` environment variable.
+It is defaults to `fzf-tmux -d 15%:fzf:peco:percol`. `EMOJI_CLI_FILTER` is the interactive filter command in order to use select emoji. It is separated by colon like the `PATH` environment variable.
 
 ### `EMOJI_CLI_KEYBIND`
 

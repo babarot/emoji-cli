@@ -10,7 +10,7 @@
 #
 
 EMOJI_CLI_DICT="${0:A:h}/dict/emoji.json"
-: "${EMOJI_CLI_FILTER:="fzf:peco:percol"}"
+: "${EMOJI_CLI_FILTER:="fzf-tmux -d 15%:fzf:peco:percol"}"
 : "${EMOJI_CLI_KEYBIND:="^s"}"
 
 # helper functions
@@ -28,7 +28,7 @@ available() {
         candidates=${candidates#*:}
 
         # check if x is available
-        if (( $+commands[$x] )); then
+        if (( $+commands[${x%% *}] )); then
             echo "$x"
             return 0
         else
@@ -100,9 +100,6 @@ emoji::fuzzy() {
         return result
     }' 2>/dev/null
 }
-
-# unique EMOJI_CLI_FILTER
-_EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
 emoji::emoji_get() {
     # reset filter

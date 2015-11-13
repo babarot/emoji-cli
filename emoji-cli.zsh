@@ -180,7 +180,7 @@ if (( ! $+commands[jq] )); then
     return 1
 fi
 
-if [[ -z $_EMOJI_CLI_FILTER ]] || (( ! $+commands[$_EMOJI_CLI_FILTER] )); then
+if (( ! $+commands[${"$(available "$EMOJI_CLI_FILTER")"%% *}] )); then
     echo "$EMOJI_CLI_FILTER: not available as an interactive filter command" 1>&2
     return 1
 fi

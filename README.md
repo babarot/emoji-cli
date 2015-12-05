@@ -44,10 +44,10 @@ $ git clone https://github.com/b4b4r07/emoji-cli
 $ source ./emoji-cli/emoji-cli.sh
 ```
 
-For [Antigen](https://github.com/zsh-users/antigen) user:
+For [zplug](https://github.com/b4b4r07/zplug) user:
 
 ```console
-$ antigen bundle b4b4r07/emoji-cli
+$ zplug "b4b4r07/emoji-cli"
 ```
 
 ### Dependencies

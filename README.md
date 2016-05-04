@@ -41,7 +41,7 @@ echo ":santa^s" | emojify
 
 ```console
 $ git clone https://github.com/b4b4r07/emoji-cli
-$ source ./emoji-cli/emoji-cli.sh
+$ source ./emoji-cli/emoji-cli.zsh
 ```
 
 For [zplug](https://github.com/b4b4r07/zplug) user:

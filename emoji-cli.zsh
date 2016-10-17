@@ -166,7 +166,7 @@ emoji::cli() {
 # source only
 if [[ ! $- =~ i ]]; then
     echo "this script requires interactive shell mode" 1>&2
-    exit 1
+    return 1
 fi
 
 # zsh only

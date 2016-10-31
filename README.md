@@ -55,6 +55,13 @@ $ zplug "b4b4r07/emoji-cli"
 - [`jq`](https://stedolan.github.io/jq/)
 - An interactive filter ([`fzf`](https://github.com/junegunn/fzf), [`peco`](https://github.com/peco/peco)...)
 
+#### :beer: Using Homebrew
+On macOS you can install the dependencies via [Homebrew](http://brew.sh/):
+
+```
+brew install jq fzf peco
+```
+
 ## :wrench: Setup
 
 ### `EMOJI_CLI_DICT`

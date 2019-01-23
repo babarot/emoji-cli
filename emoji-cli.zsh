@@ -105,15 +105,21 @@ emoji::emoji_get() {
     # reset filter
     _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
 
+	local awk_field=2
+	[ -n "${EMOJI_CLI_USE_EMOJI}" ] && awk_field=1
+
     cat <"$EMOJI_CLI_DICT" \
         | jq -r '.[]|"\(.emoji) \(":" + .aliases[0] + ":")"' \
         | eval "$_EMOJI_CLI_FILTER" \
-        | awk '{print $2}'
+        | awk '{print $'"$awk_field"'}'
 }
 
 emoji::emoji_get_with_tag() {
     # reset filter
     _EMOJI_CLI_FILTER="$(available "$EMOJI_CLI_FILTER")"
+
+	local awk_field=2
+	[ -n "${EMOJI_CLI_USE_EMOJI}" ] && awk_field=1
 
     local tmp
     tmp="$(jq -r '.[] | select(.tags[],.aliases[]|contains("'"$1"'")) | "\(.emoji) \(":" + .aliases[0] + ":")"' "$EMOJI_CLI_DICT")"
@@ -129,7 +135,7 @@ emoji::emoji_get_with_tag() {
     fi | sort -k2,2 \
         | uniq \
         | eval "$_EMOJI_CLI_FILTER" \
-        | awk '{print $2}'
+        | awk '{print $'"$awk_field"'}'
 }
 
 emoji::cli() {

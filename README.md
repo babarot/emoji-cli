@@ -76,6 +76,10 @@ It is defaults to `fzf-tmux -d 15%:fzf:peco:percol`. `EMOJI_CLI_FILTER` is the i
 
 It is defaults to `^s` (ctrl-s). `EMOJI_CLI_KEYBIND` is the key binding to start the input completion for emoji.
 
+### `EMOJI_CLI_USE_EMOJI`
+
+Set this variable to non-null to have the widget return the actual emoji
+
 ## :ticket: License
 
 [MIT](http://b4b4r07.mit-license.org) © BABAROT (a.k.a. [b4b4r07](https://github.com/b4b4r07))

@@ -62,6 +62,14 @@ On macOS you can install the dependencies via [Homebrew](http://brew.sh/):
 brew install jq fzf peco
 ```
 
+### Using Fig
+
+[Fig](https://fig.io) adds apps, shortcuts, and autocomplete to your existing terminal.
+
+Install `emoji-cli` in just one click.
+
+<a href="https://fig.io/plugins/other/emoji-cli_b4b4r07" target="_blank"><img src="https://fig.io/badges/install-with-fig.svg" /></a>
+
 ## :wrench: Setup
 
 ### `EMOJI_CLI_DICT`
